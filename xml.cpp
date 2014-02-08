@@ -1,5 +1,5 @@
 //
-//  xml.h
+//  xml.cpp
 //  Version 0.1
 //  Created by AMDS on 2010-1-8.
 //
@@ -96,18 +96,18 @@ bool Xml::parse(char* path)
 	ifstream xmlfile(path,ios::in);
 	if (!xmlfile)
 	{
-		cout<<¡°Open file failed!¡±<<endl;
+		cout<<"ÎÄ¼þ´ò¿ªÊ§°Ü"<<endl;
 		return false;
 	}
 	char ch;
 	
-	string label;
-	string labeltext;
+	string label;//±êÇ©
+	string labeltext;//±êÇ©ÄÚÈÝ
 	string content;
-	bool ismatch = false;
-	bool iscontent = false;
+	bool ismatch = false;//ÊÇ·ñÆ¥Åä
+	bool iscontent = false;//ÊÇ·ñÄÚÈÝ
 
-	string title;
+	string title;//ÀàÐÍ£¬±àÂë
 
 	XmlNode * cur = head;
 
@@ -152,7 +152,7 @@ bool Xml::parse(char* path)
 
 				if (m_vtag.back()!=labeltext)
 				{
-					cout<<¡°match¡±<<labeltext<<¡°failed!¡±<<endl;
+					cout<<"Æ¥Åä"<<labeltext<<"Ê§°Ü"<<endl;
 					xmlfile.close();
 					return false;
 				}
@@ -174,7 +174,7 @@ bool Xml::parse(char* path)
 				cur = *(cur->childs.end()-1);
 				iscontent = true;
 				
-				m_vtag.push_back(labeltext);
+				m_vtag.push_back(labeltext);//Æ¥ÅäÐ£Ñé
 				counts[labeltext]++;
 			}
 			
@@ -187,7 +187,7 @@ bool Xml::parse(char* path)
 	}
 	xmlfile.close();
 	ftime(&end);
-	cout<<¡°parse consume ¡±<<((double(end.time)-double(start.time))*1000.0+double(end.millitm)-double(start.millitm))<<"millisecond"<<endl;
+	cout<<"½âÎöºÄÊ±"<<((double(end.time)-double(start.time))*1000.0+double(end.millitm)-double(start.millitm))<<"ºÁÃë"<<endl;
 	return true;
 }
 
@@ -230,7 +230,7 @@ void Xml::menu()
 	printf("\n\n\n\n");
 	printf("\t\t**********************************\n");
 	printf("\t\t*                                *\n");
-	printf("\t\t*   Welcome to use parser V0.1   *\n");
+	printf("\t\t*      »¶Ó­Ê¹ÓÃXML½âÎöÆ÷V1.1     *\n");
 	printf("\t\t*                                *\n");
 	printf("\t\t**********************************\n");
 	printf("\n\t\t");
@@ -249,19 +249,19 @@ void Xml::menu()
 
 	while (1)
 	{
-		cout<<¡°0.Open File¡±<<endl;
-		cout<<¡°1.Show File¡±<<endl;
-		cout<<¡°2.Show Node¡°<<endl;
-		cout<<¡°3.Add Node¡°<<endl;
-		cout<<¡°4.Edit Node¡°<<endl;
-		cout<<¡°5.Delete Node¡°<<endl;
-		cout<<¡°6.Edit Attribute¡±<<endl;
-		cout<<¡°7.Node Statistics"<<endl;
-		cout<<¡°8.Save File¡±<<endl;
-		cout<<¡°9.Exit¡±<<endl;
+		cout<<"0.´ò¿ªÎÄ¼þ"<<endl;
+		cout<<"1.±éÀúÎÄ¼þ"<<endl;
+		cout<<"2.²é¿´½Úµã"<<endl;
+		cout<<"3.Ìí¼Ó½Úµã"<<endl;
+		cout<<"4.ÐÞ¸Ä½Úµã"<<endl;
+		cout<<"5.É¾³ý½Úµã"<<endl;
+		cout<<"6.ÐÞ¸ÄÊôÐÔ"<<endl;
+		cout<<"7.½ÚµãÍ³¼Æ"<<endl;
+		cout<<"8.±£´æÎÄ¼þ"<<endl;
+		cout<<"9.ÍË³öÏµÍ³"<<endl;
 
 
-		cout<<¡°Please enter your choice£º¡±<<endl;
+		cout<<"ÇëÊäÈëÄúµÄÑ¡Ôñ£º"<<endl;
 		cin>>choice;
 		cin.clear();
 		cin.ignore( numeric_limits<streamsize>::max(), '\n' );
@@ -271,17 +271,17 @@ void Xml::menu()
 		case 0:
 			delete head;
 			head = new XmlNode("",NULL);
-			cout<<¡°Please enter the file path¡±<<endl;
+			cout<<"ÇëÊäÈëÎÄ¼þÂ·¾¶"<<endl;
 			cin>>path;
-			cout<<¡°Parsingÿ¡±<<endl;
+			cout<<"½âÎöÖÐ..."<<endl;
 			if (parse(path))
 			{
-				cout<<¡°Parse Complete¡±<<endl;
+				cout<<"½âÎöÍê³É"<<endl;
 				isopen = true;
 			}
 			else
 			{
-				cout<<¡°Parse Failed!¡±<<endl;
+				cout<<"½âÎöÊ§°Ü"<<endl;
 				isopen = false;
 			}
 			
@@ -290,17 +290,17 @@ void Xml::menu()
 		case 1:
 			if (!isopen)
 			{
-				cout<<¡°Please Open File First!¡±<<endl;
+				cout<<"ÇëÏÈ´ò¿ªÎÄ¼þ"<<endl;
 				break;
 			}
-			cout<<¡°Please enter placeholder:¡±<<endl;
+			cout<<"ÇëÊäÈëÕ¼Î»·û"<<endl;
 			getline(cin,str);
 			show(str);
 			break;
 		case 2:
 			if (!isopen)
 			{
-				cout<<"Please Open File First!"<<endl;
+				cout<<"ÇëÏÈ´ò¿ªÎÄ¼þ"<<endl;
 				break;
 			}
 			try
@@ -318,18 +318,18 @@ void Xml::menu()
 		case 3:
 			if (!isopen)
 			{
-				cout<<"Please Open File First!"<<endl;
+				cout<<"ÇëÏÈ´ò¿ªÎÄ¼þ"<<endl;
 				break;
 			}
 			
 			try
 			{
 				locate(node);
-				cout<<¡°Please enter label¡±<<endl;
+				cout<<"ÇëÊäÈë½Úµã±êÇ©"<<endl;
 				cin>>label;
 				cin.clear();
 				cin.ignore( numeric_limits<streamsize>::max(), '\n' );
-				cout<<"Please enter content¡±<<endl;
+				cout<<"ÇëÊäÈë½ÚµãÄÚÈÝ(ÎÞÖ±½Ó°´»Ø³µ)"<<endl;
 				getline(cin,content);
 				node->addChild(label,content);
 			}
@@ -342,13 +342,13 @@ void Xml::menu()
 		case 4:
 			if (!isopen)
 			{
-				cout<<"Please Open File First!"<<endl;
+				cout<<"ÇëÏÈ´ò¿ªÎÄ¼þ"<<endl;
 				break;
 			}
 			try
 			{
 				locate(node);
-				cout<<"Please enter content"<<endl;
+				cout<<"ÇëÊäÈëÄÚÈÝ"<<endl;
 				cin>>content;
 				node->setContent(content);
 			}
@@ -361,36 +361,36 @@ void Xml::menu()
 		case 5:
 			if (!isopen)
 			{
-				cout<<"Please Open File First!"<<endl;
+				cout<<"ÇëÏÈ´ò¿ªÎÄ¼þ"<<endl;
 				break;
 			}
 			try
 			{
 				locate(node);
 				node->parent->deleteChild(node->lable);
-				cout<<¡°Delete Succeed!¡±<<endl;
+				cout<<"É¾³ý³É¹¦"<<endl;
 			}
 			catch (string e)
 			{
 				cout<<e<<endl;
-				cout<<"Delete Failed!¡±<<endl;
+				cout<<"É¾³ýÊ§°Ü"<<endl;
 			}			
 			break;
 		case 6:
 			if (!isopen)
 			{
-				cout<<"Please Open File First!"<<endl;
+				cout<<"ÇëÏÈ´ò¿ªÎÄ¼þ£¡"<<endl;
 				break;
 			}
 			try
 			{
 				locate(node);
-				cout<<"Please enter attribute name¡±<<endl;
+				cout<<"ÇëÊäÈëÊôÐÔÃû"<<endl;
 				cin>>str;
-				cout<<"Please enter attribute value¡±<<endl;
+				cout<<"ÇëÊäÈëÐÂµÄÊôÐÔÖµ"<<endl;
 				cin>>str1;
 				node->setAttribute(str,str1);
-				cout<<¡°Edit Succeed!¡±<<endl;
+				cout<<"ÐÞ¸Ä³É¹¦"<<endl;
 			}
 			catch (string e)
 			{
@@ -400,37 +400,37 @@ void Xml::menu()
 		case 7:
 			if (!isopen)
 			{
-				cout<<"Please Open File First!"<<endl;
+				cout<<"ÇëÏÈ´ò¿ªÎÄ¼þ£¡"<<endl;
 				break;
 			}
-			cout<<¡°Please enter node¡±<<endl;
+			cout<<"ÇëÊäÈë½Úµã£º"<<endl;
 			cin>>str;
 			if (counts[str]==0)
 			{
-				cout<<¡°no this node¡±<<endl;
+				cout<<"²»´æÔÚ¸Ã½Úµã"<<endl;
 			}
 			else
 			{
-				cout<<¡°node¡±<<str<<¡°count£º¡±<<counts[str]<<endl;
+				cout<<"½Úµã"<<str<<"ÊýÁ¿£º"<<counts[str]<<endl;
 			}
 			
 			break;
 		case 8:
 			if (!isopen)
 			{
-				printf("Please Open File First!\n");
+				printf("ÇëÏÈ´ò¿ªÎÄ¼þ\n");
 				break;
 			}
-			cout<<"Please enter the file path¡°<<endl;
+			cout<<"ÇëÊäÈëÎÄ¼þÂ·¾¶"<<endl;
 			cin>>path;
 			save(path);
 			break;
 		case 9:
-			cout<<¡°Welcome to use this system.¡±<<endl;
+			cout<<"»¶Ó­Ê¹ÓÃ±¾ÏµÍ³"<<endl;
 			return;
 			break;
 		default:
-			cout<<¡°Enter Error!¡±<<endl;
+			cout<<"ÊäÈëÓÐÎó"<<endl;
 			break;
 		}
 		system("pause");
@@ -438,7 +438,7 @@ void Xml::menu()
 	}
 }
 
-//Split
+//×Ö·û´®·Ö¸î
 void Xml::strexplod(string str,vector<string> &items)
 {
 	size_t pos;
@@ -451,7 +451,7 @@ void Xml::strexplod(string str,vector<string> &items)
 	items.push_back(str);
 }
 
-// get [] value
+//ÌáÈ¡[]ÖÐÊýÖµ
 void Xml::strindex(string &str,int &index)
 {
 	size_t pos1 = str.find("[");
@@ -469,12 +469,12 @@ void Xml::strindex(string &str,int &index)
 	}
 }
 
-//locate node
+//¶¨Î»½Úµã
 void Xml::locate(XmlNode * &node)
 {
 	vector<string> items;
 	string str;
-	cout<<¡°enter node (split by ->)¡±<<endl;
+	cout<<"ÊäÈë½Úµã(ÓÃ->·Ö¿ª)"<<endl;
 	fflush(stdin);
 	getline(cin,str);
 	fflush(stdin);

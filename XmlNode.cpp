@@ -1,5 +1,5 @@
 //
-//  xml.h
+//  xmlNode.cpp
 //  Version 0.1
 //  Created by AMDS on 2010-1-8.
 //
@@ -162,7 +162,7 @@ XmlNode& XmlNode::operator[](int index)
 	}
 	if (it == parent->childs.end())
 	{
-		string str = "Can not find this Node!";
+		string str = "未找到该接点！";
 		throw str;
 	}
 	return **it;
@@ -185,7 +185,7 @@ XmlNode& XmlNode::child(string _lable)
 			return **it;
 		}
 	}
-	string str = "Can not find this Node!";
+	string str = "未找到该接点";
 	throw str;
 	return XmlNode("",NULL);
 }
@@ -284,7 +284,7 @@ void XmlNode::setAttribute(string _attribute,string _value)
 {
 	if (attributes[_attribute].length()==0)
 	{
-		string err = "No this Attribute";
+		string err = "没有该属性";
 		throw err;
 	}
 	attributes[_attribute] = _value;

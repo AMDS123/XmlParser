@@ -1,5 +1,5 @@
 //
-//  xml.h
+//  xmlNode.h
 //  Version 0.1
 //  Created by AMDS on 2010-1-8.
 //
